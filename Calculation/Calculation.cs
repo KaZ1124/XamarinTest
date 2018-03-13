@@ -24,7 +24,7 @@ namespace Calculation
                 }
             };
 
-            MainPage = new NavigationPage(content);
+            MainPage = content;
         }
 
         protected override void OnStart()
