@@ -19,7 +19,7 @@ namespace Calculation
                         new Label {
                             HorizontalTextAlignment = TextAlignment.Center,
                             Text = "Welcome to Xamarin Forms!",
-                            BackgroundColor = Color.Cyan,
+                            BackgroundColor = Color.Red,
                         }
                     }
                 }

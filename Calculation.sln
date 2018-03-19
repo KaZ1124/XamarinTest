@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculation.iOS", "iOS\Calc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculation.Droid", "Droid\Calculation.Droid.csproj", "{3AA17F7E-7FB8-4573-83EE-DA8AE992C19A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaZXamarinLibrary", "KaZXamarinLibrary\KaZXamarinLibrary.csproj", "{5839814F-6E09-45FA-A519-465924C5CCC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,5 +55,17 @@ Global
 		{3AA17F7E-7FB8-4573-83EE-DA8AE992C19A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{3AA17F7E-7FB8-4573-83EE-DA8AE992C19A}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{3AA17F7E-7FB8-4573-83EE-DA8AE992C19A}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Release|iPhone.Build.0 = Release|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{5839814F-6E09-45FA-A519-465924C5CCC0}.Debug|iPhone.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
