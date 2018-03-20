@@ -2,13 +2,12 @@
 
 using Xamarin.Forms;
 
-namespace Calculation
-{
-    public class App : Application
-    {
-        public App()
-        {
+namespace Calculation {
+    public class App : Application {
+        public App() {
             // The root page of your application
+            #region テストコード（未使用）
+#if false
             var content = new ContentPage
             {
                 Title = "Calculation",
@@ -24,8 +23,10 @@ namespace Calculation
                     }
                 }
             };
+#endif
+            #endregion
 
-            MainPage = content;
+            MainPage = new VerticalCalculationPage();
         }
 
         protected override void OnStart()
