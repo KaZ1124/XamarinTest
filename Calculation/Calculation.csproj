@@ -31,6 +31,8 @@
     <Compile Include="Calculation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VerticalCalculationPage.cs" />
+    <Compile Include="NormalCalculator.cs" />
+    <Compile Include="CalculatorNumber.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
