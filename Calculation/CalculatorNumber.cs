@@ -53,5 +53,9 @@ namespace Calculation {
         public void Delete(){
             ValString = ValString.Substring(0, ValString.Length - 1);
         }
+
+        public override string ToString() {
+            return Value.ToString();
+        }
     }
 }

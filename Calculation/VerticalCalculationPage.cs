@@ -3,9 +3,12 @@ using Xamarin.Forms;
 using KaZXamarinLibrary.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.Forms.Internals;
 
 namespace Calculation {
     public class VerticalCalculationPage : ContentPage {
+        private NormalCalculator Calculator;
+
         /// <summary>
         /// 計算結果を表示するためのラベル
         /// </summary>
@@ -65,6 +68,8 @@ namespace Calculation {
         /// レイアウトを初期化します。
         /// </summary>
         public VerticalCalculationPage() {
+            Calculator = new NormalCalculator();
+
             InitMemberControl();
             Padding = DisplayPadding.Padding;
             Title = "電卓";
@@ -264,7 +269,18 @@ namespace Calculation {
         /// <param name="sender">AC、C、Delのボタン</param>
         /// <param name="e"></param>
         protected void BtnClears_Clicked(object sender, EventArgs e){
-            DisplayAlert("Test", sender.ToString(), "OK");
+            //Button btn = sender as Button; //<-多分必要ない
+
+            if (sender == BtnAllClear)
+                Calculator.PushAllClear();
+            else if (sender == BtnClear)
+                Calculator.PushClear();
+            else if (sender == BtnDelete)
+                Calculator.PushDelete();
+            else
+                throw new ArgumentException();
+
+            LblAnswer.Text = Calculator.VisibleString;
         }
 
         /// <summary>
@@ -273,7 +289,20 @@ namespace Calculation {
         /// <param name="sender">四則演算及びイコールのボタン</param>
         /// <param name="e"></param>
         protected void BtnCalculate_Clicked(object sender, EventArgs e){
-            DisplayAlert("Test", sender.ToString(), "OK");
+            if (sender == BtnPlus)
+                Calculator.PushOperator(NormalCalculator.Operators.Plus);
+            else if (sender == BtnMinus)
+                Calculator.PushOperator(NormalCalculator.Operators.Minus);
+            else if (sender == BtnMulti)
+                Calculator.PushOperator(NormalCalculator.Operators.Multi);
+            else if (sender == BtnDivide)
+                Calculator.PushOperator(NormalCalculator.Operators.Divide);
+            else if (sender == BtnEqual)
+                Calculator.PushOperator(NormalCalculator.Operators.Equal);
+            else
+                throw new ArgumentException();
+
+            LblAnswer.Text = Calculator.VisibleString;
         }
 
         /// <summary>
@@ -282,7 +311,21 @@ namespace Calculation {
         /// <param name="sender">数字関係のボタン（ピリオド含める）</param>
         /// <param name="e">E.</param>
         protected void BtnNumbers_Clicked(object sender, EventArgs e){
-            DisplayAlert("Test", sender.ToString(), "OK");    
+            if (sender == BtnPeriod) {
+                Calculator.PushPeriod();
+                LblAnswer.Text = Calculator.VisibleString;
+                return;
+            }
+
+            foreach (var i in BtnCollectionNumber.Take(10).Select((val, ix) => new { val, ix })){
+                if (sender == i.val) {
+                    Calculator.PushNumber(i.ix);
+                    LblAnswer.Text = Calculator.VisibleString;
+                    return;
+                }
+            }
+
+            throw new ArgumentException();
         }
 
         #endregion

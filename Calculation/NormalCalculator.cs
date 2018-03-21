@@ -39,6 +39,19 @@ namespace Calculation {
                 _Operator = value;
             }
         }
+
+        /// <summary>
+        /// 電卓表示部に表示するための文字列
+        /// </summary>
+        /// <value>表示するための文字列</value>
+        public string VisibleString{
+            get{
+                if (OpsValue == null)
+                    return Answer.ToString();
+                else
+                    return OpsValue.ToString();
+            }
+        }
         #endregion
 
         #region プロパティ
