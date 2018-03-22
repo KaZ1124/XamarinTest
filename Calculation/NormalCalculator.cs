@@ -9,36 +9,9 @@ namespace Calculation {
         }
 
         #region データとそれに関するプロパティ
-        private CalculatorNumber _Answer;
-        private CalculatorNumber? _OpsValue;
-        private Operators _Operator;
-
-        protected CalculatorNumber Answer {
-            get {
-                return _Answer;
-            }
-            set {
-                _Answer = value;
-            }
-        }
-
-        protected CalculatorNumber? OpsValue {
-            get {
-                return _OpsValue;
-            }
-            set {
-                _OpsValue = value;
-            }
-        }
-
-        protected Operators Operator {
-            get {
-                return _Operator;
-            }
-            set {
-                _Operator = value;
-            }
-        }
+        protected CalculatorNumber Answer;
+        protected CalculatorNumber OpsValue;
+        protected Operators Operator;
 
         /// <summary>
         /// 電卓表示部に表示するための文字列
@@ -46,10 +19,15 @@ namespace Calculation {
         /// <value>表示するための文字列</value>
         public string VisibleString{
             get{
-                if (OpsValue == null)
-                    return Answer.ToString();
-                else
-                    return OpsValue.ToString();
+                try {
+                    if (OpsValue == null)
+                        return Answer.ToString();
+                    else
+                        return OpsValue.ToString();
+                }catch(OverflowException){
+                    PushAllClear();
+                    return VisibleString;
+                }
             }
         }
         #endregion
@@ -95,8 +73,8 @@ namespace Calculation {
         }
 
         public NormalCalculator(NormalCalculator ops) {
-            Answer = ops.Answer;
-            OpsValue = ops.OpsValue;
+            Answer = new CalculatorNumber(ops.Answer);
+            OpsValue = new CalculatorNumber(ops.OpsValue);
             Operator = ops.Operator;
         }
         #endregion
@@ -109,13 +87,17 @@ namespace Calculation {
         public void PushNumber(int num) {
             if (num < 0 || 9 < num) throw new ArgumentOutOfRangeException();
 
-            if(Operator == Operators.None)
-                Answer.PushNumber(num);
-            else if(OpsValue is CalculatorNumber n){
-                n.PushNumber(num);
-            }else{
-                OpsValue = new CalculatorNumber();
-                OpsValue?.PushNumber(num);
+            try {
+                if (Operator == Operators.None)
+                    Answer.PushNumber(num);
+                else if (OpsValue != null) {
+                    OpsValue.PushNumber(num);
+                } else {
+                    OpsValue = new CalculatorNumber();
+                    OpsValue.PushNumber(num);
+                }
+            }catch{
+                PushAllClear();
             }
         }
 
@@ -123,15 +105,14 @@ namespace Calculation {
         /// ピリオドをプッシュします。
         /// </summary>
         public void PushPeriod() {
-            if (Operator == Operators.None)
+            if (Operator == Operators.None) {
                 Answer.PushPeriod();
-            else if (OpsValue is CalculatorNumber n) {
-                n.PushPeriod();
+            } else if (OpsValue != null) {
+                OpsValue.PushPeriod();
             } else {
                 OpsValue = new CalculatorNumber();
-                OpsValue?.PushPeriod();
+                OpsValue.PushPeriod();
             }
-
         }
 
         /// <summary>
@@ -195,26 +176,30 @@ namespace Calculation {
         /// 演算子に基づいて計算を実行します。
         /// </summary>
         protected void CalAnswer(){
-            switch(Operator){
-            case Operators.None:
-            case Operators.Equal:
-                break;
-            case Operators.Plus:
-                Answer = new CalculatorNumber(Answer.Value + (OpsValue ?? Answer).Value);
-                break;
-            case Operators.Minus:
-                Answer = new CalculatorNumber(Answer.Value - (OpsValue ?? Answer).Value);
-                break;
-            case Operators.Multi:
-                Answer = new CalculatorNumber(Answer.Value * (OpsValue ?? Answer).Value);
-                break;
-            case Operators.Divide:
-                Answer = new CalculatorNumber(Answer.Value / (OpsValue ?? Answer).Value);
-                break;
-            }
+            try {
+                switch (Operator) {
+                case Operators.None:
+                case Operators.Equal:
+                    break;
+                case Operators.Plus:
+                    Answer = new CalculatorNumber(Answer.Value + (OpsValue ?? Answer).Value);
+                    break;
+                case Operators.Minus:
+                    Answer = new CalculatorNumber(Answer.Value - (OpsValue ?? Answer).Value);
+                    break;
+                case Operators.Multi:
+                    Answer = new CalculatorNumber(Answer.Value * (OpsValue ?? Answer).Value);
+                    break;
+                case Operators.Divide:
+                    Answer = new CalculatorNumber(Answer.Value / (OpsValue ?? Answer).Value);
+                    break;
+                }
 
-            OpsValue = null;
-            Operator = Operators.None;
+                OpsValue = null;
+                Operator = Operators.None;
+            }catch(OverflowException){
+                PushAllClear();
+            }
         }
         #endregion
     }

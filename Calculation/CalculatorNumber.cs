@@ -1,6 +1,6 @@
 ﻿using System;
 namespace Calculation {
-    public struct CalculatorNumber {
+    public class CalculatorNumber {
         private string ValString;
 
         public decimal Value{
@@ -33,7 +33,9 @@ namespace Calculation {
         public void PushPeriod(){
             if (IsEmpty)
                 ValString += "0";
-            ValString += ".";
+
+            if(ValString.IndexOf('.') < 0)
+                ValString += ".";
         }
 
         public void PushMinus(){
@@ -47,7 +49,7 @@ namespace Calculation {
         }
 
         public void Clear(){
-            ValString = "";
+            ValString = "0";
         }
 
         public void Delete(){
